@@ -8,9 +8,15 @@ var gulp = require('gulp'),
 gulp.task('default',
     [
         'scripts',
-        'styles'
+        'styles',
+        'watch'
     ]
 );
+
+gulp.task('watch', function() {
+    gulp.watch('js/*.js', ['scripts']);
+    gulp.watch('css/*.css', ['styles']);
+});
 
 gulp.task('scripts', function() {
     gulp.src('js/*.js')
