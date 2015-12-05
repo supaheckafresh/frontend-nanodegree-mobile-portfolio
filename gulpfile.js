@@ -35,7 +35,7 @@ gulp.task('styles', function () {
 gulp.task('images', function (cb) {
     gulp.src(['img/*.jpg', 'img/*png', 'views/images/*jpg', 'views/images/*png'])
         .pipe(imageOptim({
-            optimizationLevel: 5,
+            optimizationLevel: 6,
             progressive: true,
             interlaced: true
         })).pipe(gulp.dest('production/img')).on('end', cb).on('error', cb);
