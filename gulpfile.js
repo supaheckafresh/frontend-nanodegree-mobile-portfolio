@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     minifyCSS = require('gulp-minify-css'),
+    minifyHTML = require('gulp-minify-html'),
     imageOptim = require('gulp-image-optimization');
 
 gulp.task('default',
@@ -15,25 +16,36 @@ gulp.task('default',
 );
 
 gulp.task('watch', function () {
-    gulp.watch('js/*.js', ['scripts']);
-    gulp.watch('css/*.css', ['styles']);
+    gulp.watch('dev/js/*.js', ['scripts']);
+    gulp.watch('dev/css/*.css', ['styles']);
 });
 
 gulp.task('scripts', function () {
-    gulp.src('js/*.js')
+    gulp.src('dev/js/*.js')
         .pipe(uglify())
         .pipe(rename('perfmatters.min.js'))
-        .pipe(gulp.dest('js/'));
+        .pipe(gulp.dest('production/js/'));
 });
 
 gulp.task('styles', function () {
-    gulp.src('css/*.css')
+    gulp.src('dev/css/*.css')
         .pipe(minifyCSS())
-        .pipe(gulp.dest('css/'));
+        .pipe(gulp.dest('production/css/'));
+});
+
+gulp.task('html', function () {
+    var opts = {
+        empty: true,
+        spare: true
+    };
+
+    return gulp.src('dev/index.html')
+        .pipe(minifyHTML(opts))
+        .pipe(gulp.dest('production/'));
 });
 
 gulp.task('images', function (cb) {
-    gulp.src(['img/*.jpg', 'img/*png', 'views/images/*jpg', 'views/images/*png'])
+    gulp.src(['dev/img/*.jpg', 'dev/img/*png', 'dev/views/images/*jpg', 'dev/views/images/*png'])
         .pipe(imageOptim({
             optimizationLevel: 6,
             progressive: true,
