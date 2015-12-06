@@ -7,6 +7,9 @@
     <meta name="author" content="Cameron Pittman">
     <title>Cameron Pittman: Portfolio</title>
 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/print.css">
+
 </head>
 
 <body>
@@ -92,30 +95,6 @@
         wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js';
         s.parentNode.insertBefore(wf, s);
     })(document);
-</script>
-
-<script async="async">
-    var cb = function () {
-        var l = document.createElement('link'); l.rel = 'stylesheet';
-        l.href = 'css/style.css';
-        var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
-    };
-    var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-            webkitRequestAnimationFrame || msRequestAnimationFrame;
-    if (raf) raf(cb);
-    else window.addEventListener('load', cb);
-</script>
-
-<script async="async">
-    var cb = function () {
-        var l = document.createElement('link'); l.rel = 'stylesheet';
-        l.href = 'css/print.css';
-        var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
-    };
-    var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-            webkitRequestAnimationFrame || msRequestAnimationFrame;
-    if (raf) raf(cb);
-    else window.addEventListener('load', cb);
 </script>
 
 </body>

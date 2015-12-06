@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     minifyCSS = require('gulp-minify-css'),
     minifyHTML = require('gulp-minify-html'),
+    inlineCSS = require('gulp-inline-css'),
     imageOptim = require('gulp-image-optimization');
 
 gulp.task('default',
@@ -38,6 +39,13 @@ gulp.task('html', function () {
 
     return gulp.src('dev/index.html')
         .pipe(minifyHTML(opts))
+        .pipe(inlineCSS({
+            applyStyleTags: true,
+            applyLinkTags: true,
+            removeStyleTags: true,
+            removeLinkTags: true,
+            preserveMediaQueries: true
+        }))
         .pipe(gulp.dest('production/'));
 });
 
