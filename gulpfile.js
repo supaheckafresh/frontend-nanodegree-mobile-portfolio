@@ -15,11 +15,6 @@ gulp.task('default',
     ]
 );
 
-gulp.task('watch', function () {
-    gulp.watch('dev/js/*.js', ['scripts']);
-    gulp.watch('dev/css/*.css', ['styles']);
-});
-
 gulp.task('scripts', function () {
     gulp.src('dev/js/*.js')
         .pipe(uglify())
@@ -51,4 +46,11 @@ gulp.task('images', function (cb) {
             progressive: true,
             interlaced: true
         })).pipe(gulp.dest('production/img')).on('end', cb).on('error', cb);
+});
+
+gulp.task('watch', function () {
+    gulp.watch('dev/js/*.js', ['scripts']);
+    gulp.watch('dev/css/*.css', ['styles']);
+    gulp.watch('dev/index.html', ['html']);
+    gulp.watch(['dev/img/*.jpg', 'dev/img/*.png'], ['images']);
 });
