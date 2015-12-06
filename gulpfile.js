@@ -32,7 +32,7 @@ gulp.task('styles', function () {
 
 gulp.task('html', function () {
     var opts = {
-        empty: false,
+        empty: true,
         spare: true
     };
 
