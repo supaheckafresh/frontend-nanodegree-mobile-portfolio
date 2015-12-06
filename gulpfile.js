@@ -19,14 +19,13 @@ gulp.task('default',
 );
 
 gulp.task('scripts', function () {
-    gulp.src('dev/js/*.js')
+    gulp.src(['dev/js/*.js', 'views/js/*.js'])
         .pipe(uglify())
-        .pipe(rename('perfmatters.min.js'))
         .pipe(gulp.dest('production/js/'));
 });
 
 gulp.task('styles', function () {
-    gulp.src('dev/css/*.css')
+    gulp.src(['dev/css/*.css', 'views/css/*.css'])
         .pipe(minifyCSS())
         .pipe(gulp.dest('production/css/'));
 });
@@ -37,7 +36,7 @@ gulp.task('html', function () {
         spare: true
     };
 
-    return gulp.src('dev/index.html')
+    return gulp.src('dev/**/*.html')
         .pipe(minifyHTML(opts))
         .pipe(inlineCSS({
             applyStyleTags: true,
