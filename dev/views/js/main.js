@@ -403,16 +403,17 @@ var resizePizzas = function (size) {
     window.performance.mark("mark_start_resize");   // User Timing API function
 
     // Changes the value for the size of the pizza above the slider
+    var pizzaSizeDiv = document.querySelector("#pizzaSize");
     function changeSliderLabel(size) {
         switch (size) {
             case "1":
-                document.querySelector("#pizzaSize").innerHTML = "Small";
+                pizzaSizeDiv.innerHTML = "Small";
                 return;
             case "2":
-                document.querySelector("#pizzaSize").innerHTML = "Medium";
+                pizzaSizeDiv.innerHTML = "Medium";
                 return;
             case "3":
-                document.querySelector("#pizzaSize").innerHTML = "Large";
+                pizzaSizeDiv.innerHTML = "Large";
                 return;
             default:
                 console.log("bug in changeSliderLabel");
@@ -506,20 +507,10 @@ function updatePositions() {
     frame++;
     window.performance.mark("mark_start_frame");
 
-    //console.log('===========================new call to updatePositions()=====================================');
-
     var constant = document.body.scrollTop / 1250;
     var phases = sinesOf([constant, constant + 1, constant + 2, constant + 3, constant + 4]);
-
     for (var i = 0; i < items.length; i++) {
-        //console.log('---------');
-        //console.log('i = ' + i);
-
-        var phase = phases[i % 5];
-        //console.log('phase = ' + phase);
-        //console.log('constant = ' + constant);
-        //console.log('i % 5 = ' + i % 5);
-
+        var phase = phases[i % 5]
         items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
 
