@@ -515,6 +515,8 @@ function updatePositions() {
         //TODO use transform to move pizzas?
         //items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
         items[i].style.transform = 'translateX(' + (items[i].basicLeft + 100) * phase + 'px)';
+
+        //TODO implement 0 transform hack to tell browser to only repaint pizzas in background
     }
 
     // User Timing API to the rescue again. Seriously, it's worth learning.
