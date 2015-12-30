@@ -486,6 +486,7 @@ console.log("Time to generate pizzas on load: " + timeToGenerate[0].duration + "
 // Iterator for number of times the pizzas in the background have scrolled.
 // Used by updatePositions() to decide when to log the average time per frame
 var frame = 0;
+var animating = false;
 
 // Logs the average amount of time per 10 frames needed to move the sliding background pizzas on scroll.
 function logAverageFrame(times) {   // times is the array of User Timing measurements from updatePositions()
@@ -495,6 +496,13 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
         sum = sum + times[i].duration;
     }
     console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
+}
+
+function requestAnimationFrameWhenScrolling() {
+    if (!animating) {
+        requestAnimationFrame(updatePositions);
+        animating = true;
+    }
 }
 
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
@@ -513,8 +521,6 @@ function updatePositions() {
     for (var i = 0; i < items.length; i++) {
         var phase = phases[i % 5];
         items[i].style.transform = 'translate3d(' + 100 * phase + 'px,0px,0px)';
-
-        //TODO implement 0 transform hack to tell browser to only repaint pizzas in background
     }
 
     // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -525,6 +531,8 @@ function updatePositions() {
         var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
         logAverageFrame(timesToUpdatePosition);
     }
+
+    animating = false;
 }
 
 function sinesOf(numArray) {
@@ -535,7 +543,7 @@ function sinesOf(numArray) {
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+window.addEventListener('scroll', requestAnimationFrameWhenScrolling);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function displayMovingPizzas() {
