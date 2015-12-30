@@ -531,7 +531,6 @@ function updatePositions() {
         var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
         logAverageFrame(timesToUpdatePosition);
     }
-
     animating = false;
 }
 
@@ -542,7 +541,6 @@ function sinesOf(numArray) {
     return numArray;
 }
 
-// runs updatePositions on scroll
 window.addEventListener('scroll', animatePizzasWhenScrolling);
 
 // Generates the sliding pizzas when the page loads.
