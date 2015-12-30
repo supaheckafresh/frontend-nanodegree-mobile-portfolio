@@ -512,9 +512,7 @@ function updatePositions() {
 
     for (var i = 0; i < items.length; i++) {
         var phase = phases[i % 5];
-        //TODO use transform to move pizzas?
-        //items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-        items[i].style.transform = 'translateX(' + (items[i].basicLeft + 100) * phase + 'px)';
+        items[i].style.transform = 'translateX(' + 100 * phase + 'px)';
 
         //TODO implement 0 transform hack to tell browser to only repaint pizzas in background
     }
@@ -552,6 +550,7 @@ document.addEventListener('DOMContentLoaded', function displayMovingPizzas() {
         elem.style.width = "73.333px";
         elem.basicLeft = (i % cols) * s;
         elem.style.top = (Math.floor(i / cols) * s) + 'px';
+        elem.style.left = elem.basicLeft + 'px';
         movingPizzas.appendChild(elem);
     }
     updatePositions();
