@@ -498,10 +498,10 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
     console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
 }
 
-function requestAnimationFrameWhenScrolling() {
+function animatePizzasWhenScrolling() {
     if (!animating) {
-        requestAnimationFrame(updatePositions);
         animating = true;
+        requestAnimationFrame(updatePositions);
     }
 }
 
@@ -515,8 +515,8 @@ function updatePositions() {
     frame++;
     window.performance.mark("mark_start_frame");
 
-    var constant = document.body.scrollTop / 1250;
-    var phases = sinesOf([constant, constant+1, constant+2, constant+3, constant+4]);
+    var scrollConstant = document.body.scrollTop / 1250;
+    var phases = sinesOf([scrollConstant, scrollConstant+1, scrollConstant+2, scrollConstant+3, scrollConstant+4]);
 
     for (var i = 0; i < items.length; i++) {
         var phase = phases[i % 5];
@@ -543,14 +543,14 @@ function sinesOf(numArray) {
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', requestAnimationFrameWhenScrolling);
+window.addEventListener('scroll', animatePizzasWhenScrolling);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function displayMovingPizzas() {
     var cols = 8;
     var s = 256;
     var movingPizzas = document.getElementById("movingPizzas1");
-    for (var i = 0; i < 40; i++) {
+    for (var i = 0; i < 38; i++) {
         var elem = document.createElement('img');
         elem.className = 'mover';
         elem.src = "images/pizza.png";
