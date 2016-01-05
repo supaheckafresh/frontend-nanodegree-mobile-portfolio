@@ -520,6 +520,7 @@ function updatePositions() {
     animating = false;
 }
 
+//helper function for calculating phases in updatePostions()
 function sinesOf(numArray) {
     for (var i = 0; i < numArray.length; i++) {
         numArray[i] = Math.sin(numArray[i]);
