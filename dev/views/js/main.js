@@ -498,6 +498,9 @@ function updatePositions() {
 
     for (var i = 0; i < items.length; i++) {
         var phase = phases[i % 5];
+        
+        // translate3d hack with 0 y and z values used to force separate layers for each moving pizza.
+        // got less janky results with this than with css backface-visibility: hidden hack
         items[i].style.transform = 'translate3d(' + 100 * phase + 'px,0px,0px)';
     }
 
@@ -519,6 +522,7 @@ function sinesOf(numArray) {
     return numArray;
 }
 
+// I did experiment with using requestAnimationFrame to fire updatePositions but actually got smoother results without it.
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
