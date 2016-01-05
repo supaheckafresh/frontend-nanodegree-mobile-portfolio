@@ -13,19 +13,20 @@ gulp.task('default',
         'scripts',
         'styles',
         'html',
+        'pizzaHtml',
         'images',
         'watch'
     ]
 );
 
 gulp.task('scripts', function () {
-    gulp.src(['dev/js/*.js', 'views/js/*.js'])
+    gulp.src(['dev/js/*.js', 'dev/views/js/*.js'])
         .pipe(uglify())
         .pipe(gulp.dest('production/js/'));
 });
 
 gulp.task('styles', function () {
-    gulp.src(['dev/css/*.css', 'views/css/*.css'])
+    gulp.src(['dev/css/*.css', 'dev/views/css/*.css'])
         .pipe(minifyCSS())
         .pipe(gulp.dest('production/css/'));
 });
@@ -36,7 +37,7 @@ gulp.task('html', function () {
         spare: true
     };
 
-    return gulp.src('dev/**/*.html')
+    return gulp.src('dev/*.html')
         .pipe(minifyHTML(opts))
         .pipe(inlineCSS({
             applyStyleTags: true,
@@ -48,8 +49,20 @@ gulp.task('html', function () {
         .pipe(gulp.dest('production/'));
 });
 
+// layout issues when inlining CSS on pizza.html - for now making separate task
+gulp.task('pizzaHtml', function () {
+    var opts = {
+        empty: true,
+        spare: true
+    };
+
+    return gulp.src('dev/views/*.html')
+        .pipe(minifyHTML(opts))
+        .pipe(gulp.dest('production/'));
+});
+
 gulp.task('images', function (cb) {
-    gulp.src(['dev/img/*.jpg', 'dev/img/*png', 'dev/views/images/*jpg', 'dev/views/images/*png'])
+    gulp.src(['dev/img/*.jpg', 'dev/img/*png', 'dev/views/img/*jpg', 'dev/views/img/*png'])
         .pipe(imageOptim({
             optimizationLevel: 6,
             progressive: true,
