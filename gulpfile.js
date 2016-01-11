@@ -6,7 +6,6 @@ var gulp = require('gulp'),
     minifyCSS = require('gulp-minify-css'),
     minifyHTML = require('gulp-minify-html'),
     inlineCSS = require('gulp-inline-css'),
-    cssnano = require('gulp-cssnano'),
     imageOptim = require('gulp-image-optimization');
 
 gulp.task('default',
@@ -59,7 +58,6 @@ gulp.task('pizzaHtml', function () {
 
     return gulp.src('dev/views/*.html')
         .pipe(minifyHTML(opts))
-        .pipe(cssnano())
         .pipe(gulp.dest('production/'));
 });
 
