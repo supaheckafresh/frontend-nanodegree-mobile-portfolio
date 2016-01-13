@@ -1,3 +1,6 @@
+'use strict';
+
+
 /*
  Welcome to the 60fps project! Your goal is to make Cam's Pizzeria website run
  jank-free at 60 frames per second.
@@ -441,7 +444,7 @@ var resizePizzas = function (size) {
     // Iterates through pizza elements on the page and changes their widths
     function changePizzaSizes(size) {
         var randomPizzas = document.getElementsByClassName('randomPizzaContainer');
-        for (var i = 0; i < randomPizzas.length; i++) {
+        for (var i = 0, len = randomPizzas.length; i < len; i++) {
             randomPizzas[i].style.width = getWidth(size) + '%';
         }
     }
@@ -458,8 +461,8 @@ var resizePizzas = function (size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-    var pizzasDiv = document.getElementById("randomPizzas");
     pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -496,8 +499,9 @@ function updatePositions() {
     var scrollConstant = document.body.scrollTop / 1250;
     var phases = sinesOf([scrollConstant, scrollConstant+1, scrollConstant+2, scrollConstant+3, scrollConstant+4]);
 
-    for (var i = 0; i < items.length; i++) {
-        var phase = phases[i % 5];
+    var phase;
+    for (var i = 0, len = items.length; i < len; i++) {
+        phase = phases[i % 5];
         
         // translate3d hack with 0 y and z values used to force separate layers for each moving pizza.
         // got less janky results with this than with css backface-visibility: hidden hack
@@ -530,8 +534,15 @@ document.addEventListener('DOMContentLoaded', function displayMovingPizzas() {
     var cols = 8;
     var s = 256;
     var movingPizzas = document.getElementById("movingPizzas1");
-    for (var i = 0; i < 38; i++) {
-        var elem = document.createElement('img');
+    var elem;
+
+    //calculate window height for calculating number of moving pizzas
+    var windowHeight = window.screen.height;
+    var rows = windowHeight / s;
+    var totalPizzas = rows * cols;
+
+    for (var i = 0; i < totalPizzas; i++) {
+        elem = document.createElement('img');
         elem.className = 'mover';
         elem.src = "img/pizza.png";
         elem.style.height = "100px";
